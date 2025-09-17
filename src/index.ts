@@ -22,17 +22,17 @@ class BA2Handler implements types.IArchiveHandler {
       const files: string[] = [];
       const subDirs = new Set<string>();
       this.mBA2.fileList.forEach(fileName => {
-          if (!fileName.toLowerCase().startsWith(query)) {
-            return;
-          }
+        if (!fileName.toLowerCase().startsWith(query)) {
+          return;
+        }
 
-          const nextBS = fileName.indexOf('\\', query.length);
-          if (nextBS === -1) {
-            files.push(fileName.substr(query.length));
-          } else {
-            subDirs.add(fileName.substr(query.length, nextBS - query.length).toLowerCase());
-          }
-        });
+        const nextBS = fileName.indexOf('\\', query.length);
+        if (nextBS === -1) {
+          files.push(fileName.substr(query.length));
+        } else {
+          subDirs.add(fileName.substr(query.length, nextBS - query.length).toLowerCase());
+        }
+      });
       resolve([].concat(Array.from(subDirs), files));
     });
   }
@@ -60,7 +60,7 @@ class BA2Handler implements types.IArchiveHandler {
 function createBA2Handler(fileName: string,
                           options: types.IArchiveOptions): Promise<types.IArchiveHandler> {
   return loadBA2async(fileName)
-  .then((archive: BA2Archive) => new BA2Handler(archive));
+    .then((archive: BA2Archive) => new BA2Handler(archive));
 }
 
 function init(context: types.IExtensionContext) {
